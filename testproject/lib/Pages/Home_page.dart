@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   final String _title = "IAEA";
   final ScrollController _scrollController = ScrollController();
   PageController? pc;
+  String usuario ="";
 
   void iniState() {
     super.initState();

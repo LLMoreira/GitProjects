@@ -23,7 +23,7 @@ class AuthService extends ChangeNotifier {
     });
   }
 
-  _getUser() {
+  getUser() {
     usuario = _auth.currentUser;
     notifyListeners();
   }
@@ -31,7 +31,7 @@ class AuthService extends ChangeNotifier {
   registrar(String email, String senha) async {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: senha);
-      _getUser();
+      getUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw AuthException('A senha é muito fraca!');
@@ -44,7 +44,7 @@ class AuthService extends ChangeNotifier {
   login(String email, String senha) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: senha);
-      _getUser();
+      getUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw AuthException('Email não encontrado. Cadastre-se.');
@@ -56,6 +56,6 @@ class AuthService extends ChangeNotifier {
 
   logout() async {
     await _auth.signOut();
-    _getUser();
+    getUser();
   }
 }
